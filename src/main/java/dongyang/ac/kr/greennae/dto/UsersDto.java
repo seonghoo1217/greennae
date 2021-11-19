@@ -20,7 +20,10 @@ public class UsersDto {
     @NotBlank
     private String password;
 
-    private int age;
+    @NotBlank
+    private String sex;
+
+    private String age;
 
     private String realname;
 
@@ -29,11 +32,12 @@ public class UsersDto {
     private String role;
 
     @Builder
-    public UsersDto(Long id,String username,String realname,String password,String street,int age,String role){
+    public UsersDto(Long id,String username,String realname,String password,String sex,String street,String age,String role){
         this.id=id;
         this.username=username;
         this.realname=realname;
         this.password=password;
+        this.sex=sex;
         this.age=age;
         this.street=street;
         this.role=role;
@@ -46,6 +50,7 @@ public class UsersDto {
                 .realname(realname)
                 .password(password)
                 .age(age)
+                .sex(sex)
                 .street(street)
                 .role(role)
                 .build();

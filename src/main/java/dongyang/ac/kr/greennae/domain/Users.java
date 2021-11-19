@@ -18,7 +18,7 @@ public class Users {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "user_name")
+    @Column(name = "user_name",unique = true)
     private String username;
 
     @Column(name = "user_realname")
@@ -28,21 +28,25 @@ public class Users {
     private String password;
 
     @Column(name = "user_age")
-    private int age;
+    private String age;
 
     @Column(name = "user_street")
     private String street;
+
+    @Column(name = "user_sex")
+    private String sex;
 
     @Column(name = "user_role")
     private String role;
 
     @Builder
-    public Users(Long id,String username,String realname,String password,int age,String street, String role) {
+    public Users(Long id,String username,String realname,String password,String age,String street,String sex, String role) {
         this.id=id;
         this.username=username;
         this.realname=realname;
         this.password=password;
         this.age=age;
+        this.sex=sex;
         this.street=street;
         this.role=role;
     }

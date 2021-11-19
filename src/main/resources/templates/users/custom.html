@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script type="text/javascript" th:src="@{/js/usercustom.js}"></script>
+    <link type="text/css" rel="stylesheet"th:href="@{/css/custom.css}">
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+    <h1>회원 정보</h1>
+    <div class="3">
+        <span>아이디 이름 성별 나이</span>
+        <th:block th:each="Users : ${usersList}">
+            <div class="member">
+                <div class="member_list">
+                    <div class="member_username">
+                        <span th:id="member_id_+${Users.id}" th:text="${Users.getUsername()}"/>
+                    </div>
+                    <div class="member_name">
+                        <span th:text="${Users.getRealname()}"/>
+                    </div>
+                    <div class="member_sex">
+                        <span th:text="${Users.getSex()}"/>
+                    </div>
+                    <div class="member_age">
+                        <span th:text="${Users.getAge()}"/>
+                    </div>
+                    <div class="up_btn">
+                        <button class="button_style" th:onclick="|javascript:onUpgrade(${Users.id})|">승급</button>
+                    </div>
+                    <div class="up_btn">
+                        <button class="button_style" th:onclick="|javascript:onDelete(${Users.id})|">삭제</button>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+</body>
+</html>

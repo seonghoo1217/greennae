@@ -40,8 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                     .antMatchers("/login/signin","/login/signup").permitAll()//permitAll은 누구나 접근가능
-                    .antMatchers("/").hasRole("USER")//권한에 따라서 볼수있는 url이 다름
-                    .antMatchers("/board/**").hasRole("USER2")
+                    .antMatchers("/").hasAnyRole("USER","MEMBER","ADMIN")//권한에 따라서 볼수있는 url이 다름
+                    .antMatchers("/board/**").hasRole("MEMBER")
                     .antMatchers("/users/custom").hasRole("ADMIN")
                 .and()
                 .formLogin()
@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("dongyang")
                 .password("$2a$10$gOXZ7vxyaJC8fH9pdLiU8e5QpV2zfOcT6n0LzUfa4ckMclxJiB01.")
-                .roles("USER","ALLOW","ADMIN");
+                .roles("USER","MEMBER","ADMIN");
 
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
 

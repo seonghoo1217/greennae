@@ -48,16 +48,34 @@ public class LoginController {
     @GetMapping("/signup")
     public String createUserForm(UsersDto dto, Model model){
 
+
         model.addAttribute("dto", dto);
 
         return "login/signup";
     }
 
    @PostMapping("/signup")
-    public String createUser(UsersDto dto){
+    public String createUser(@Validated UsersDto dto, BindingResult result,Model model) {
+       if (result.hasErrors()) {
+           Map<String, String> errorMap = new HashMap<>();
 
-        userService.createUser(dto);
+           for (FieldError error : result.getFieldErrors()) {
+               errorMap.put(error.getField(), error.getDefaultMessage());
+               log.error(error.getDefaultMessage());
+               log.error(dto.toString());
+           }
 
-        return "/login/signin";
-    }
+           throw new ValidationException("회원가입 에러!", (Throwable) errorMap);
+       } else {
+           try {
+               userService.createUser(dto);
+           } catch (Exception e) {
+               log.error(e.getMessage());
+               model.addAttribute("dto", dto);
+               return "redirect:/login/signup";
+           }
+           return "/login/signin";
+       }
+
+   }
 }

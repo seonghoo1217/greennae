@@ -6,13 +6,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../static/css/Login.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/footer.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/header.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/Login.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/head.css}">
     <title> 새로운 인연. 그린내 - 메인 </title>
 </head>
 <body>
-<img src="../../static/img/logo2.png" alt="로고" id="LoginLogo"></a>
+<img th:src="@{/img/logo2.png}" alt="로고" id="LoginLogo"></a>
 
     <div th:if="${param.error}">
         <p th:text="옳바른 로그인 정보가 아닙니다" class="alert alert-danger"/>
