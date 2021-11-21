@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -38,6 +40,9 @@ public class Users {
 
     @Column(name = "user_role")
     private String role;
+
+    @OneToMany
+    private List<Image> images=new ArrayList<>();
 
     @Builder
     public Users(Long id,String username,String realname,String password,String age,String street,String sex, String role) {

@@ -74,7 +74,7 @@ public class LoginController {
                model.addAttribute("dto", dto);
                return "redirect:/login/signup";
            }
-           return "/login/signin";
+           return "/login/imageRegi";
        }
 
    }

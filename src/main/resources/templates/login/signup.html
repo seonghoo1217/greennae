@@ -5,29 +5,43 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <link rel="stylesheet" type="text/css" th:href="@{css/Joinstyle.css}">
+    <link href="../../static/css/join.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
 <form method="post" th:action="@{/login/signup}">
-    <div class="craft">
+    <div id="container">
+        <div class="input_form">
+        <!-- 텍스트 -->
+            <h1> 회원가입</h1>
 
-            <!-- 텍스트 -->
-            <div>
-                <label for="realname">유저이름</label>
-                <input placeholder="이름을 입력" autofocus type="text" id="realname" name="realname">
-            </div>
+        <div>
+            <label for="realname">유저이름</label>
+            <input placeholder="이름을 입력" autofocus type="text" id="realname" name="realname">
+        </div>
 
-            <!-- 아이디 -->
-            <div>
-                <label for="username">아이디</label>
-                <input required type="text" id="username" name="username"> <!-- required 필수로 입력 -->
-            </div>
+        <!-- 아이디 -->
+        <div class="input_id">
+            <label for="username">아이디</label>
+            <input required type="text" id="username" name="username"> <!-- required 필수로 입력 -->
+        </div>
 
-            <!-- 패스워드 -->
-            <div>
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" name="password">
-            </div>
+        <!-- 패스워드 -->
+        <div class="input _password">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password">
+        </div>
+
+        <!-- 숫자:number -->
+        <div>
+            <label for="age">나이</label>
+            <input type="age" name="age" id="age">
+        </div>
+        <div>
+            <label for="street">거주지</label>
+            <input type="text" name="street" id="street">
+        </div>
+
             <!-- select -->
             <div>
                 <label for="sex">성별</label>
@@ -37,26 +51,63 @@
                     <option  value="other">Other</option>
                 </select>
             </div>
-            <!-- 숫자:number -->
-            <div>
-                <label for="age">나이</label>
-                <input type="age" name="age" id="age">
-            </div>
-            <div>
-                <label for="street">거주지</label>
-                <input type="text" name="street" id="street">
-            </div>
-            <!-- 서버로 입력내용을 보내는 버튼 -->
-            <button type="submit" class="btn btn-primary" >회원가입</button>
+        <!-- 서버로 입력내용을 보내는 버튼 -->
+        <button name="submitBtn" type="submit" class="btn btn-primary" >회원가입</button>
 
-            <!-- 리셋버튼 -->
-            <button type="reset">리셋</button>
+        <!-- 리셋버튼 -->
+        <button type="reset">리셋</button>
 
 
 
-            <input type="submit" value="확인">
+        <input type="submit" value="확인">
+        </div>
     </div>
 </form>
-    </div>
+</div>
+<script>
+    function showUploadImages(arr){
+        console.log(arr)
+        var divArea=$(".uploadResult");
+
+        for(var i=0; i<arr.length;i++){
+            divArea.append("<img src='/display?fileName="+arr[i].thumbnailURL+"'>");
+        }
+    }
+
+    $(".uploadBtn`").click(function (e){
+
+        e.preventDefault()
+        let username = $("#username").val();
+
+        console.log(username)
+
+        var formData=new FormData();
+
+        var inputFile=$("input[type='file']");
+
+        var files=inputFile[0].files;
+
+        for(var i=0; i< files.length; i++){
+            console.log(files[i]);
+            formData.append("uploadFiles",files[i]);
+        }
+
+        $.ajax({
+            url:'/uploadAjax',
+            processData:false,
+            contentType:false,
+            data: formData,
+            type:'POST',
+            dataType:'json',
+            success:function (result){
+                console.log(result)
+                showUploadImages(result);
+            },
+            error:function (jqXHR,testStatus,errorThrown){
+                console.log(testStatus);
+            }
+        });
+    });
+</script>
 </body>
 </html>
