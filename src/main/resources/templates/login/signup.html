@@ -4,11 +4,13 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>회원가입</title>
     <link href="../../static/css/join.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" th:src="@{/js/register.js}"></script>
 </head>
 <body>
-
+<div>
 <form method="post" th:action="@{/login/signup}">
     <div id="container">
         <div class="input_form">
@@ -52,62 +54,14 @@
                 </select>
             </div>
         <!-- 서버로 입력내용을 보내는 버튼 -->
-        <button name="submitBtn" type="submit" class="btn btn-primary" >회원가입</button>
+        <button class="submitBtn" name="submitBtn" type="submit" >회원가입 완료</button>
 
-        <!-- 리셋버튼 -->
-        <button type="reset">리셋</button>
-
-
-
-        <input type="submit" value="확인">
         </div>
     </div>
 </form>
+<button class="btn" th:onclick="checkId()">중복 검사</button>
+<!-- 리셋버튼 -->
+<button class="btn" type="reset">리셋</button>
 </div>
-<script>
-    function showUploadImages(arr){
-        console.log(arr)
-        var divArea=$(".uploadResult");
-
-        for(var i=0; i<arr.length;i++){
-            divArea.append("<img src='/display?fileName="+arr[i].thumbnailURL+"'>");
-        }
-    }
-
-    $(".uploadBtn`").click(function (e){
-
-        e.preventDefault()
-        let username = $("#username").val();
-
-        console.log(username)
-
-        var formData=new FormData();
-
-        var inputFile=$("input[type='file']");
-
-        var files=inputFile[0].files;
-
-        for(var i=0; i< files.length; i++){
-            console.log(files[i]);
-            formData.append("uploadFiles",files[i]);
-        }
-
-        $.ajax({
-            url:'/uploadAjax',
-            processData:false,
-            contentType:false,
-            data: formData,
-            type:'POST',
-            dataType:'json',
-            success:function (result){
-                console.log(result)
-                showUploadImages(result);
-            },
-            error:function (jqXHR,testStatus,errorThrown){
-                console.log(testStatus);
-            }
-        });
-    });
-</script>
 </body>
 </html>

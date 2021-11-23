@@ -1,9 +1,11 @@
 package dongyang.ac.kr.greennae.controller.upload;
 
 import dongyang.ac.kr.greennae.domain.Image;
-import dongyang.ac.kr.greennae.dto.Example;
 import dongyang.ac.kr.greennae.dto.UsersDto;
 import dongyang.ac.kr.greennae.dto.uploadResultDto;
+import dongyang.ac.kr.greennae.principal.AccountContext;
+import dongyang.ac.kr.greennae.repository.ImageRepository;
+import dongyang.ac.kr.greennae.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,15 +38,18 @@ import java.util.UUID;
 
 @RestController
 @Log4j2
+@RequiredArgsConstructor
 public class UploadController {
 
+    private final ImageService imageService;
 
 
     @Value("C:\\upload")
     private String uploadPath;
 
     @PostMapping("/uploadAjax")
-    public ResponseEntity<?> uploadFile(MultipartFile[] uploadFiles){
+    public ResponseEntity<?> uploadFile(MultipartFile[] uploadFiles, @AuthenticationPrincipal AccountContext accountContext
+    ,UsersDto dto){
 
         List<uploadResultDto> resultDtoList=new ArrayList<>();
 
@@ -66,17 +72,27 @@ public class UploadController {
 
             Path savePath = Paths.get(saveName);
 
+            Image buildImage = Image.builder()
+                    .originalFileName(originalName)
+                    .fileName(fileName)
+                    .folderPath(folderPath)
+                    .users(accountContext.returnUser())
+                    .build();
+
+            imageService.saveImage(buildImage);
+
             try{
                 uploadFile.transferTo(savePath);
                 String thumbnailSaveName=uploadPath+File.separator+folderPath+File.separator+
                         "s_"+uuid+"_"+fileName;
                 File thumbnailFile=new File(thumbnailSaveName);
-                Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,100,100);
+                Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,200,200);
                 resultDtoList.add(new uploadResultDto(fileName,uuid,folderPath));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
         return new ResponseEntity<>(resultDtoList,HttpStatus.OK);
     }
 

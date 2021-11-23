@@ -27,6 +27,18 @@ public class AccountContext implements UserDetails {
 
     }
 
+    public Users returnUser(){
+
+        Users buildUser = Users.builder()
+                .id(id)
+                .username(username)
+                .password(password)
+                .role(role)
+                .build();
+
+        return buildUser;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
