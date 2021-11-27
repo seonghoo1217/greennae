@@ -1,6 +1,6 @@
 package dongyang.ac.kr.greennae.service;
 
-import dongyang.ac.kr.greennae.domain.Users;
+import dongyang.ac.kr.greennae.domain.User;
 import dongyang.ac.kr.greennae.dto.UsersDto;
 import dongyang.ac.kr.greennae.principal.AccountContext;
 import dongyang.ac.kr.greennae.repository.UserRepository;
@@ -31,11 +31,15 @@ public class UserService implements UserDetailsService {
         }else {
             dto.setRole("ROLE_USER");
         }
+
+
+
+        log.info("sibal={}", dto.toEntity().getFileImage());
         return userRepository.save(dto.toEntity()).getId();
     }
     @Transactional
     public int findById(Long id){
-        Users findUser = userRepository.findById(id).get();
+        User findUser = userRepository.findById(id).get();
         if(findUser == null){
             return 1;
         }
@@ -46,8 +50,14 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users users= userRepository.findByUsername(username).get();
+        User user = userRepository.findByUsername(username).get();
 
-        return new AccountContext(users);
+        return new AccountContext(user);
+    }
+
+    @Transactional
+    public void UserUpdate(Long id,String fileName){
+        User user = userRepository.findById(id).get();
+        user.setImageName(fileName);
     }
 }

@@ -1,6 +1,6 @@
 package dongyang.ac.kr.greennae.principal;
 
-import dongyang.ac.kr.greennae.domain.Users;
+import dongyang.ac.kr.greennae.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,21 +15,28 @@ public class AccountContext implements UserDetails {
     private String username;
     private String password;
     private String role;
+    private String street;
+    private String sex;
+    private String imageName;
 
-    public AccountContext(Users users) {
-        this.id=users.getId();
-        this.username = users.getUsername();
-        this.password = users.getPassword();
-        this.role = users.getRole();
+
+    public AccountContext(User user) {
+        this.id= user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.role = user.getRole();
+        this.sex= user.getSex();
+        this.street= user.getStreet();
+        this.imageName= user.getImageName();
     }
 
     public AccountContext() {
 
     }
 
-    public Users returnUser(){
+    public User returnUser(){
 
-        Users buildUser = Users.builder()
+        User buildUser = User.builder()
                 .id(id)
                 .username(username)
                 .password(password)
@@ -55,6 +62,15 @@ public class AccountContext implements UserDetails {
         return this.username;
     }
 
+    public String getImageName(){
+        return this.imageName;
+    }
+    public String getStreet(){
+        return this.street=street;
+    }
+    public String getSex(){
+        return this.sex=sex;
+    }
 
     public Long getId(){return this.id;}
 

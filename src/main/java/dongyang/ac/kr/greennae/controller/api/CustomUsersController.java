@@ -1,6 +1,6 @@
 package dongyang.ac.kr.greennae.controller.api;
 
-import dongyang.ac.kr.greennae.domain.Users;
+import dongyang.ac.kr.greennae.domain.User;
 import dongyang.ac.kr.greennae.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +22,7 @@ public class CustomUsersController {
 
     @GetMapping("/user/{id}/upgrade")
     public ResponseEntity<?> userUpgrade(@PathVariable("id")Long id){
-        Users findUser = userRepository.findById(id).get();
+        User findUser = userRepository.findById(id).get();
 
         findUser.setRole("ROLE_MEMBER");
         userRepository.save(findUser);
@@ -35,7 +33,7 @@ public class CustomUsersController {
 
     @GetMapping("/user/{id}/delete")
     public ResponseEntity<?> userDelete(@PathVariable("id")Long id){
-        Users findUser = userRepository.findById(id).get();
+        User findUser = userRepository.findById(id).get();
 
         userRepository.delete(findUser);
         log.info("findUser={}",findUser);

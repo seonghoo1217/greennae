@@ -10,12 +10,13 @@ import java.util.Objects;
 @Setter
 @ToString
 @Entity
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "file_id")
     private Long id;
 
     @Column(name = "file_oriname")
@@ -24,16 +25,18 @@ public class Image {
     @Column(name = "file_name")
     private String fileName;
 
-    @Column(name = "file_path")
-    private String filePath;
 
     @Column(name = "file_folder")
     private String folderPath;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @Column(name = "file_fullname")
+    private String thumbnailSaveName;
+
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
     @ToString.Exclude
-    private Users users;
+    private User user;
 
     @Override
     public boolean equals(Object o) {
@@ -47,5 +50,15 @@ public class Image {
     @Override
     public int hashCode() {
         return 548781654;
+    }
+
+    @Builder
+    public Image (Long id, String fileName , String originalFileName, String folderPath, User user, String thumbnailSaveName){
+        this.id=id;
+        this.fileName=fileName;
+        this.originalFileName=originalFileName;
+        this.folderPath=folderPath;
+        this.thumbnailSaveName=thumbnailSaveName;
+        this.user = user;
     }
 }

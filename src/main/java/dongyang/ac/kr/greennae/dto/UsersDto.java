@@ -1,11 +1,10 @@
 package dongyang.ac.kr.greennae.dto;
 
-import dongyang.ac.kr.greennae.domain.Users;
+import dongyang.ac.kr.greennae.domain.User;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 
 @Data
@@ -31,8 +30,10 @@ public class UsersDto {
 
     private String role;
 
+    private String imageName;
+
     @Builder
-    public UsersDto(Long id,String username,String realname,String password,String sex,String street,String age,String role){
+    public UsersDto(Long id,String username,String realname,String password,String sex,String street,String age,String role,String imageName){
         this.id=id;
         this.username=username;
         this.realname=realname;
@@ -41,10 +42,11 @@ public class UsersDto {
         this.age=age;
         this.street=street;
         this.role=role;
+        this.imageName=imageName;
     }
 
-    public Users toEntity(){
-        return Users.builder()
+    public User toEntity(){
+        return User.builder()
                 .id(id)
                 .username(username)
                 .realname(realname)
@@ -53,6 +55,7 @@ public class UsersDto {
                 .sex(sex)
                 .street(street)
                 .role(role)
+                .imageName(null)
                 .build();
     }
 }

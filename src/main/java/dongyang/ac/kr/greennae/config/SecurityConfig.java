@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/login/signin","/login/signup").permitAll()//permitAll은 누구나 접근가능
                     .antMatchers("/").hasAnyRole("USER","MEMBER","ADMIN")//권한에 따라서 볼수있는 url이 다름
                     .antMatchers("/board/**").hasRole("MEMBER")
-                    .antMatchers("/users/custom").hasRole("ADMIN")
+                    .antMatchers("/user/custom").hasRole("ADMIN")
                 .and()
                 .formLogin()
                     .loginPage("/login/signin")//로그인할 페이지

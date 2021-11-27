@@ -1,10 +1,6 @@
 package dongyang.ac.kr.greennae.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.User;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,8 +8,10 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,11 +39,14 @@ public class Users {
     @Column(name = "user_role")
     private String role;
 
-    @OneToMany
-    private List<Image> images=new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Image> fileImage=new ArrayList<>();
+
+    @Column(name = "user_img")
+    private String imageName;
 
     @Builder
-    public Users(Long id,String username,String realname,String password,String age,String street,String sex, String role) {
+    public User(Long id, String username, String realname, String password, String age, String street, String sex, String role, String imageName) {
         this.id=id;
         this.username=username;
         this.realname=realname;
@@ -54,5 +55,7 @@ public class Users {
         this.sex=sex;
         this.street=street;
         this.role=role;
+        this.imageName=imageName;
     }
+
 }

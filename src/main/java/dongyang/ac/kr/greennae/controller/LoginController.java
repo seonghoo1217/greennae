@@ -1,17 +1,10 @@
 package dongyang.ac.kr.greennae.controller;
 
 
-import dongyang.ac.kr.greennae.domain.Image;
-import dongyang.ac.kr.greennae.domain.Users;
 import dongyang.ac.kr.greennae.dto.UsersDto;
-import dongyang.ac.kr.greennae.principal.AccountContext;
-import dongyang.ac.kr.greennae.repository.ImageRepository;
-import dongyang.ac.kr.greennae.repository.UserRepository;
-import dongyang.ac.kr.greennae.service.ImageService;
 import dongyang.ac.kr.greennae.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,10 +26,7 @@ import java.util.Map;
 @Log4j2
 public class LoginController {
 
-    private final UserRepository userRepository;
     private final UserService userService;
-    private final ImageRepository imageRepository;
-    private final ImageService imageService;
 
 
 

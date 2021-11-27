@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>마이 프로필</h1>
+
+<th:block th:each="Image:${imageList}">
+    <img th:src="|/display?filename=${Image.getThumbnailSaveName()}|"/>
+</th:block>
+
+<span th:text="${accountContext.getUsername()}"></span>
+</body>
+</html>

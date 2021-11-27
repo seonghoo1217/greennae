@@ -1,6 +1,6 @@
 package dongyang.ac.kr.greennae.controller;
 
-import dongyang.ac.kr.greennae.domain.Users;
+import dongyang.ac.kr.greennae.domain.User;
 import dongyang.ac.kr.greennae.dto.UsersDto;
 import dongyang.ac.kr.greennae.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("users")
+@RequestMapping("user")
 public class UsersController {
 
     private final UserRepository userRepository;
@@ -21,9 +21,9 @@ public class UsersController {
     @GetMapping("/custom")
     public String userCustom(Model model, UsersDto usersDto){
 
-        List<Users> usersList= userRepository.findAll();
+        List<User> userList = userRepository.findAll();
 
-        model.addAttribute("usersList",usersList);
+        model.addAttribute("usersList", userList);
 
         return "users/custom";
     }

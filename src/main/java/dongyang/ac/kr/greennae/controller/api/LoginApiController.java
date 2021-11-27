@@ -1,6 +1,6 @@
 package dongyang.ac.kr.greennae.controller.api;
 
-import dongyang.ac.kr.greennae.domain.Users;
+import dongyang.ac.kr.greennae.domain.User;
 import dongyang.ac.kr.greennae.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class LoginApiController {
 
         log.info("username={}", username);
 
-        Optional<Users> findMember = userRepository.findByUsername(username);
+        Optional<User> findMember = userRepository.findByUsername(username);
 
         if(!findMember.isPresent()){
             return new ResponseEntity<>(1, HttpStatus.OK);

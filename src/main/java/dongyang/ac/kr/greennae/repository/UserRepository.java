@@ -1,6 +1,6 @@
 package dongyang.ac.kr.greennae.repository;
 
-import dongyang.ac.kr.greennae.domain.Users;
+import dongyang.ac.kr.greennae.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users,Long> {
-    Optional<Users> findByUsername (String username) throws UsernameNotFoundException;
+public interface UserRepository extends JpaRepository<User,Long> {
+    Optional<User> findByUsername (String username) throws UsernameNotFoundException;
 
-    @Query("select u from Users u")
-    List<Users> findAll();
+    @Query("select u from User u")
+    List<User> findAll();
 }

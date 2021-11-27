@@ -18,9 +18,9 @@
         <nav id="header_menu">
             <ul>
                 <li style="font-size:large">안녕하세요 <span th:text="${accountContext.getUsername()}"/> 님</li>
-               <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{users/custom}">회원 목록 편집</a></li>
+               <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{user/custom}">회원 목록 편집</a></li>
                 <li><a href="/doLogout">로그아웃</a></li>
-                <li><a href="#">마이 프로필</a></li>
+                <li><a th:href="@{/myprofile}">마이 프로필</a></li>
                 <li><a href="#">관리자에게 문의</a></li>
             </ul>
         </nav> <!-- 주요 탑메뉴 기능들 -->

@@ -9,7 +9,7 @@ import java.net.URLEncoder;
 
 @Data
 @AllArgsConstructor
-public class uploadResultDto implements Serializable {
+public class UploadResultDto implements Serializable {
     private String fileName;
     private String uuid;
     private String folderPath;

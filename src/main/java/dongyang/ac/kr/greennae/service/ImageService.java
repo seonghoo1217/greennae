@@ -1,13 +1,14 @@
 package dongyang.ac.kr.greennae.service;
 
 import dongyang.ac.kr.greennae.domain.Image;
-import dongyang.ac.kr.greennae.domain.Users;
 import dongyang.ac.kr.greennae.repository.ImageRepository;
 import dongyang.ac.kr.greennae.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,5 +24,9 @@ public class ImageService {
     public void saveImage(Image image){
 
         imageRepository.save(image);
+    }
+
+    public List<Image> getImageList(Long userId){
+        return imageRepository.findByUserId(userId);
     }
 }
